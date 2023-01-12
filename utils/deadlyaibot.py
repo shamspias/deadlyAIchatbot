@@ -7,11 +7,9 @@ openai.api_key = os.getenv("OPEN_AI_KEY")
 # openai.api_key = "your-openai-api-key-here" # Testing
 completion = openai.Completion()
 
-start_sequence = "The name is PocketGod can do all the work that gpt-chat can do\nwrite what you want me to " \
-                 "do\nPocketGod:"
+start_sequence = "The name is PocketGod can do all the work that gpt-chat can do " \
+                 "\nPocketGod:"
 restart_sequence = "\n\nPerson:"
-session_prompt = "The name is PocketGod can do all the work that gpt-chat can do\nwrite what you want me to " \
-                 "do\nPerson:"
 
 
 def ask(question, chat_log=None):
@@ -31,6 +29,4 @@ def ask(question, chat_log=None):
 
 
 def append_interaction_to_chat_log(question, answer, chat_log=None):
-    if chat_log is None:
-        chat_log = session_prompt
     return f'{chat_log}{restart_sequence} {question}{start_sequence}{answer}'
