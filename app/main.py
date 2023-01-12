@@ -86,8 +86,10 @@ def deadly_text_chat():
             answer = get_answer(incoming_msg, chat_log)
             session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
                                                                  chat_log)
-
-            response = client.send_normal_message(answer, user)
+            if user is not None:
+                response = client.send_normal_message(answer, user)
+            else:
+                response = "No User"
         else:
             response = "No Data"
 

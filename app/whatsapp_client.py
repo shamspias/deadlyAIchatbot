@@ -60,8 +60,8 @@ class WhatsAppWrapper:
                     response.append(
                         {
                             "type": change["field"],
-                            "from": "",
-                            "mgs": "",
+                            "from": None,
+                            "mgs": None,
                         }
                     )
         # Do whatever with the response
