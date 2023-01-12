@@ -50,7 +50,7 @@ class WhatsAppWrapper:
                 response.append(
                     {
                         "type": change["field"],
-                        "from": change["value"]["metadata"]["display_phone_number"],
+                        "from": change["value"]["messages"]["from"],
                         "mgs": change["value"]["messages"]["text"]["body"],
                     }
                 )
