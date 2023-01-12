@@ -67,7 +67,7 @@ class WhatsAppWrapper:
         # Do whatever with the response
         return response
 
-    async def send_normal_message(self, replay, phone_number):
+    def send_normal_message(self, replay, phone_number):
         payload = json.dumps({
             "messaging_product": "whatsapp",
             "to": phone_number,

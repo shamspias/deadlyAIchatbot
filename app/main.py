@@ -87,7 +87,7 @@ async def deadly_text_chat():
             session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
                                                                  chat_log)
 
-            response = await client.send_normal_message(answer, user)
+            response = client.send_normal_message(answer, user)
 
         return jsonify(
             {
