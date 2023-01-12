@@ -3,7 +3,7 @@ import os
 import openai
 
 load_dotenv()
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key = os.getenv("OPEN_AI_KEY")
 # openai.api_key = "your-openai-api-key-here" # Testing
 completion = openai.Completion()
 
