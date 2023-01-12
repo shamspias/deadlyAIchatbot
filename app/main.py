@@ -35,7 +35,7 @@ def send_template_message():
         language_code=request.json["language_code"],
         phone_number=request.json["phone_number"],
     )
-
+    print(response)
     return jsonify(
         {
             "data": response,
