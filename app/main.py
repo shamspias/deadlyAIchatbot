@@ -67,7 +67,7 @@ def webhook_whatsapp():
 
 
 @app.route('/deadlyai/', methods=["POST", "GET"])
-async def deadly_text_chat():
+def deadly_text_chat():
     if request.method == "GET":
         if request.args.get('hub.verify_token') == VERIFY_TOKEN:
             return request.args.get('hub.challenge')
@@ -80,10 +80,10 @@ async def deadly_text_chat():
         user = data[0]['from']
         incoming_msg = data[0]['mgs']
         if incoming_msg.startswith("/image"):
-            response = await client.send_normal_message("Image will be added soon", user)
+            response = client.send_normal_message("Image will be added soon", user)
         else:
             chat_log = session.get('chat_log')
-            answer = await get_answer(incoming_msg, chat_log)
+            answer = get_answer(incoming_msg, chat_log)
             session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
                                                                  chat_log)
 
