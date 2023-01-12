@@ -3,8 +3,8 @@ import os
 import openai
 
 load_dotenv()
-# openai.api_key = os.getenv("OPENAI_API_KEY")
-openai.api_key = "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" # Testing
+openai.api_key = os.getenv("OPENAI_API_KEY")
+# openai.api_key = "your-openai-api-key-here" # Testing
 completion = openai.Completion()
 
 start_sequence = "\nDeadlyAI:"
