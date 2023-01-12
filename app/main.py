@@ -81,13 +81,15 @@ def deadly_text_chat():
         incoming_msg = data[0]['mgs']
         if incoming_msg.startswith("/image"):
             response = client.send_normal_message("Image will be added soon", user)
-        else:
+        elif incoming_msg is not None:
             chat_log = session.get('chat_log')
             answer = get_answer(incoming_msg, chat_log)
             session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
                                                                  chat_log)
 
             response = client.send_normal_message(answer, user)
+        else:
+            response = "No Data"
 
         return jsonify(
             {

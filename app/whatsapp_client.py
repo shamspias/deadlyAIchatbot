@@ -60,7 +60,7 @@ class WhatsAppWrapper:
                     response.append(
                         {
                             "type": change["field"],
-                            "from": "+8801784056345",
+                            "from": "",
                             "mgs": "",
                         }
                     )
