@@ -18,10 +18,10 @@ def ask(question, chat_log=None):
         engine="text-davinci-003",
         prompt=prompt_text,
         temperature=0.8,
-        max_tokens=150,
+        max_tokens=256,
         top_p=1,
         frequency_penalty=0,
-        presence_penalty=0.3,
+        presence_penalty=0,
         stop=["\n"],
     )
     story = response['choices'][0]['text']
