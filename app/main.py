@@ -77,6 +77,7 @@ def deadly_text_chat():
     response = client.process_webhook_notification(request.get_json())
 
     incoming_msg = response['mgs']
+    print(incoming_msg)
     chat_log = session.get('chat_log')
     answer = ask(incoming_msg, chat_log)
     session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
@@ -91,4 +92,4 @@ def deadly_text_chat():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=os.getenv("DEBUG"))
