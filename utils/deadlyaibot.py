@@ -7,9 +7,11 @@ openai.api_key = os.getenv("OPEN_AI_KEY")
 # openai.api_key = "your-openai-api-key-here" # Testing
 completion = openai.Completion()
 
-start_sequence = "\nPocketGod:"
+start_sequence = "The name is PocketGod can do all the work that gpt-chat can do\nwrite what you want me to " \
+                 "do\nPocketGod:"
 restart_sequence = "\n\nPerson:"
-session_prompt = "Name is PocketGod can do all the work that chatgpt can do\nPerson:"
+session_prompt = "The name is PocketGod can do all the work that gpt-chat can do\nwrite what you want me to " \
+                 "do\nPerson:"
 
 
 def ask(question, chat_log=None):
