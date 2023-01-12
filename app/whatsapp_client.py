@@ -47,13 +47,14 @@ class WhatsAppWrapper:
         for entry in data["entry"]:
 
             for change in entry["changes"]:
-                response.append(
-                    {
-                        "type": change["field"],
-                        "from": change["value"]["messages"]["from"],
-                        "mgs": change["value"]["messages"]["text"]["body"],
-                    }
-                )
+                for mgs in change["value"]["messages"]:
+                    response.append(
+                        {
+                            "type": change["field"],
+                            "from": mgs["from"],
+                            "mgs": mgs["text"]["body"],
+                        }
+                    )
         # Do whatever with the response
         return response
 
