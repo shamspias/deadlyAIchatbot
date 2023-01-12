@@ -69,6 +69,7 @@ def webhook_whatsapp():
 @app.route('/deadlyai/', methods=["POST", "GET"])
 def deadly_text_chat():
     if request.method == "GET":
+        print("Test Inside Get")
         if request.args.get('hub.verify_token') == VERIFY_TOKEN:
             return request.args.get('hub.challenge')
         return "Authentication failed. Invalid Token."
