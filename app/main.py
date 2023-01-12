@@ -66,7 +66,7 @@ def webhook_whatsapp():
     return jsonify({"status": "success"}, 200)
 
 
-@app.route('/deadlyai', methods=["POST", "GET"])
+@app.route('/deadlyai/', methods=["POST", "GET"])
 def deadly_text_chat():
     if request.method == "GET":
         if request.args.get('hub.verify_token') == VERIFY_TOKEN:
