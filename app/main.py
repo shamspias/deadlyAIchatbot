@@ -79,7 +79,7 @@ async def deadly_text_chat():
         data = client.process_webhook_notification(row_data)
         user = data[0]['from']
         incoming_msg = data[0]['mgs']
-        if incoming_msg.startwith("/image"):
+        if incoming_msg.startswith("/image"):
             response = await client.send_normal_message("Image will be added soon", user)
         else:
             chat_log = session.get('chat_log')
