@@ -79,12 +79,15 @@ async def deadly_text_chat():
         data = client.process_webhook_notification(row_data)
         user = data[0]['from']
         incoming_msg = data[0]['mgs']
-        chat_log = session.get('chat_log')
-        answer = await get_answer(incoming_msg, chat_log)
-        session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
-                                                             chat_log)
+        if incoming_msg.startwith("/image"):
+            response = await client.send_normal_message("Image will be added soon", user)
+        else:
+            chat_log = session.get('chat_log')
+            answer = await get_answer(incoming_msg, chat_log)
+            session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
+                                                                 chat_log)
 
-        response = await client.send_normal_message(answer, user)
+            response = await client.send_normal_message(answer, user)
 
         return jsonify(
             {
