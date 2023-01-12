@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from flask import Flask, request, session, jsonify
-from utils.deadlyaibot import ask, append_interaction_to_chat_log
+from utils.deadlyaibot import get_answer, append_interaction_to_chat_log
 
 from app.whatsapp_client import WhatsAppWrapper
 
@@ -67,7 +67,7 @@ def webhook_whatsapp():
 
 
 @app.route('/deadlyai/', methods=["POST", "GET"])
-def deadly_text_chat():
+async def deadly_text_chat():
     if request.method == "GET":
         if request.args.get('hub.verify_token') == VERIFY_TOKEN:
             return request.args.get('hub.challenge')
@@ -79,13 +79,12 @@ def deadly_text_chat():
         data = client.process_webhook_notification(row_data)
         user = data[0]['from']
         incoming_msg = data[0]['mgs']
-        print(incoming_msg)
         chat_log = session.get('chat_log')
-        answer = ask(incoming_msg, chat_log)
+        answer = await get_answer(incoming_msg, chat_log)
         session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
                                                              chat_log)
 
-        response = client.send_normal_message(answer, user)
+        response = await client.send_normal_message(answer, user)
 
         return jsonify(
             {

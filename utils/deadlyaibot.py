@@ -29,3 +29,7 @@ def ask(question, chat_log=None):
 
 def append_interaction_to_chat_log(question, answer, chat_log=None):
     return f'{chat_log}{restart_sequence} {question}{start_sequence}{answer}'
+
+
+async def get_answer(question, chat_log):
+    return ask(question, chat_log)
