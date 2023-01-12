@@ -9,7 +9,7 @@ completion = openai.Completion()
 
 start_sequence = "\nDeadlyAI:"
 restart_sequence = "\n\nPerson:"
-session_prompt = "The following is a conversation with an AI assistant name DeadlyAI. The assistant is helpful, " \
+session_prompt = "The following is a conversation with an AI assistant name PocketGod. The assistant is helpful, " \
                  "creative, clever, and very friendly.\n\nPerson: Hello, who are you?\nDeadlyAI: I am an AI created by " \
                  "DeadlyAI. " \
                  "How can I help you today?\nPerson:"
