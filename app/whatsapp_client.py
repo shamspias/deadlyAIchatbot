@@ -51,6 +51,7 @@ class WhatsAppWrapper:
                     {
                         "type": change["field"],
                         "from": change["value"]["metadata"]["display_phone_number"],
+                        "mgs": change["value"]["messages"]["text"]["body"],
                     }
                 )
         # Do whatever with the response
