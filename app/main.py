@@ -77,8 +77,8 @@ def deadly_text_chat():
         client = WhatsAppWrapper()
         row_data = request.get_json()
         data = client.process_webhook_notification(row_data)
-        user = data['from']
-        incoming_msg = data['mgs']
+        user = data[0]['from']
+        incoming_msg = data[0]['mgs']
         print(incoming_msg)
         chat_log = session.get('chat_log')
         answer = ask(incoming_msg, chat_log)
