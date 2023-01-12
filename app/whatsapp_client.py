@@ -56,3 +56,18 @@ class WhatsAppWrapper:
                 )
         # Do whatever with the response
         return response
+
+    def send_normal_message(self, replay, phone_number):
+        payload = json.dumps({
+            "messaging_product": "whatsapp",
+            "to": phone_number,
+            "text": {
+                "body": replay,
+            }
+        })
+
+        response = requests.request("POST", f"{self.API_URL}/messages", headers=self.headers, data=payload)
+
+        assert response.status_code == 200, "Error sending message"
+
+        return response.status_code

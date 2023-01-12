@@ -75,18 +75,21 @@ def deadly_text_chat():
         return "Authentication failed. Invalid Token."
 
     client = WhatsAppWrapper()
-    response = client.process_webhook_notification(request.get_json())
+    data = client.process_webhook_notification(request.get_json())
+    sender = data['from']
 
-    incoming_msg = response['mgs']
+    incoming_msg = data['mgs']
     print(incoming_msg)
     chat_log = session.get('chat_log')
     answer = ask(incoming_msg, chat_log)
     session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
                                                          chat_log)
 
+    response = client.send_normal_message(answer, sender)
+
     return jsonify(
         {
-            "data": answer,
+            "data": response,
             "status": "success",
         },
     ), 200
