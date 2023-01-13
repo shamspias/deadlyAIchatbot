@@ -4,18 +4,16 @@ from flask import Flask, request, session, jsonify
 
 from celery import Celery
 
+load_dotenv()
+
 app = Flask(__name__)
-app.config.update(CELERY_CONFIG={
-    'broker_url': 'redis://localhost:6379',
-    'result_backend': 'redis://localhost:6379',
-})
 
 
 def make_celery(flask_app):
     celery = Celery(
         flask_app.import_name,
-        result_backend=flask_app.config["RESULT_BACKEND_CELERY"],
-        broker=flask_app.config["CELERY_BROKER_URL"],
+        result_backend=os.getenv("CELERY_RESULT_BACKEND"),
+        broker=os.getenv("CELERY_BROKER_URL"),
     )
     celery.conf.update(flask_app.config)
 
@@ -28,7 +26,7 @@ from utils.deadlyaibot import get_answer, append_interaction_to_chat_log
 from app.whatsapp_client import WhatsAppWrapper
 
 # if for some reason your conversation with the bot gets weird, change the secret key
-load_dotenv()
+
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 VERIFY_TOKEN = os.getenv('WHATSAPP_HOOK_TOKEN')
 
