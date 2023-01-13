@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from flask import Flask, request, session, jsonify
-from utils.deadlyaibot import get_answer, append_interaction_to_chat_log
+from utils.deadlyaibot import ask, append_interaction_to_chat_log
 from app.whatsapp_client import WhatsAppWrapper
 
 load_dotenv()
@@ -63,11 +63,11 @@ def deadly_text_chat():
                 response = client.send_normal_message("Image will be added soon", user)
             else:
                 chat_log = session.get('chat_log')
-                answer = get_answer(incoming_msg, chat_log)
+                answer = ask.delay(incoming_msg, chat_log)
                 session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
                                                                      chat_log)
                 if user is not None:
-                    response = client.send_normal_message(answer, user)
+                    response = client.send_normal_message.delay(answer, user)
                 else:
                     response = "No User"
         else:
