@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 import openai
-from celery_worker import celery
+from app import celery
 
 load_dotenv()
 openai.api_key = os.getenv("OPEN_AI_KEY")
