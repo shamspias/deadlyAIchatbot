@@ -1,31 +1,12 @@
 import os
 from dotenv import load_dotenv
 from flask import Flask, request, session, jsonify
-
-from celery import Celery
+from utils.deadlyaibot import get_answer, append_interaction_to_chat_log
+from app.whatsapp_client import WhatsAppWrapper
 
 load_dotenv()
 
 app = Flask(__name__)
-
-
-def make_celery(flask_app):
-    celery = Celery(
-        flask_app.import_name,
-        result_backend=os.getenv("CELERY_RESULT_BACKEND"),
-        broker=os.getenv("CELERY_BROKER_URL"),
-    )
-    celery.conf.update(flask_app.config)
-
-    return celery
-
-
-celery = make_celery(app)
-
-from utils.deadlyaibot import get_answer, append_interaction_to_chat_log
-from app.whatsapp_client import WhatsAppWrapper
-
-# if for some reason your conversation with the bot gets weird, change the secret key
 
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 VERIFY_TOKEN = os.getenv('WHATSAPP_HOOK_TOKEN')
