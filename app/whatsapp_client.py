@@ -2,6 +2,7 @@ import os
 import requests
 from dotenv import load_dotenv
 import json
+from main import celery
 
 load_dotenv()
 
@@ -67,6 +68,7 @@ class WhatsAppWrapper:
         # Do whatever with the response
         return response
 
+    @celery.task(name="send_message")
     def send_normal_message(self, replay, phone_number):
         payload = json.dumps({
             "messaging_product": "whatsapp",
