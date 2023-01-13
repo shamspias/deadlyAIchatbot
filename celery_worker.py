@@ -2,16 +2,14 @@ from celery import Celery
 from app.main import app
 
 
-def make_celery(app):
-    celery = Celery(app.import_name)
-    celery.conf.update(app.config["CELERY_CONFIG"])
+def make_celery(flask_app):
+    celery = Celery(
+        flask_app.import_name,
+        result_backend=flask_app.config["RESULT_BACKEND_CELERY"],
+        broker=flask_app.config["CELERY_BROKER_URL"],
+    )
+    celery.conf.update(flask_app.config)
 
-    class ContextTask(celery.Task):
-        def __call__(self, *args, **kwargs):
-            with app.app_context():
-                return self.run(*args, **kwargs)
-
-    celery.Task = ContextTask
     return celery
 
 
