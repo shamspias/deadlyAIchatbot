@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 import os
 import openai
+from app.main import celery
 
 load_dotenv()
 openai.api_key = os.getenv("OPEN_AI_KEY")
@@ -11,6 +12,7 @@ start_sequence = "The name is PocketGod\n\nPocketGod:"
 restart_sequence = "\n\nPerson:"
 
 
+@celery.task(name="ask")
 def ask(question, chat_log=None):
     prompt_text = f'{chat_log}{restart_sequence}: {question}{start_sequence}:'
     response = openai.Completion.create(
@@ -32,4 +34,5 @@ def append_interaction_to_chat_log(question, answer, chat_log=None):
 
 
 def get_answer(question, chat_log):
-    return ask(question, chat_log)
+    answer = ask(question, chat_log)
+    return answer

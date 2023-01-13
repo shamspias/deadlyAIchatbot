@@ -4,8 +4,15 @@ from flask import Flask, request, session, jsonify
 from utils.deadlyaibot import get_answer, append_interaction_to_chat_log
 
 from app.whatsapp_client import WhatsAppWrapper
+from celery_worker import make_celery
 
 app = Flask(__name__)
+app.config.update(CELERY_CONFIG={
+    'broker_url': 'redis://localhost:6379',
+    'result_backend': 'redis://localhost:6379',
+})
+celery = make_celery(app)
+
 # if for some reason your conversation with the bot gets weird, change the secret key
 load_dotenv()
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
@@ -42,28 +49,6 @@ def send_template_message():
             "status": "success",
         },
     ), 200
-
-
-@app.route("/webhook/", methods=["POST", "GET"])
-def webhook_whatsapp():
-    """
-    __summary__: Get message from the webhook
-    To test the app
-    """
-
-    if request.method == "GET":
-        if request.args.get('hub.verify_token') == VERIFY_TOKEN:
-            return request.args.get('hub.challenge')
-        return "Authentication failed. Invalid Token."
-
-    client = WhatsAppWrapper()
-
-    response = client.process_webhook_notification(request.get_json())
-
-    # Do anything with the response
-    # Sending a message to a phone number to confirm the webhook is working
-
-    return jsonify({"status": "success"}, 200)
 
 
 @app.route('/deadlyai/', methods=["POST", "GET"])
