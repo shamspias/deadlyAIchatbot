@@ -2,7 +2,7 @@ import os
 import requests
 from dotenv import load_dotenv
 import json
-from main import celery
+from celery_worker import celery
 
 load_dotenv()
 

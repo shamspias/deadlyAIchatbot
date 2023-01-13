@@ -11,7 +11,6 @@ app.config.update(CELERY_CONFIG={
     'broker_url': 'redis://localhost:6379',
     'result_backend': 'redis://localhost:6379',
 })
-celery = make_celery(app)
 
 # if for some reason your conversation with the bot gets weird, change the secret key
 load_dotenv()

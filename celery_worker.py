@@ -1,4 +1,5 @@
 from celery import Celery
+from app.main import app
 
 
 def make_celery(app):
@@ -12,3 +13,6 @@ def make_celery(app):
 
     celery.Task = ContextTask
     return celery
+
+
+celery = make_celery(app)
