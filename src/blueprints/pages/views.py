@@ -76,14 +76,14 @@ def deadly_text_chat():
 
         if incoming_msg is not None:
             if incoming_msg.startswith("/image"):
-                response = client.send_normal_message.delay("Image will be added soon", user)
+                response = client.send_normal_message.delay(replay="Image will be added soon", phone_number=user)
             else:
                 chat_log = session.get('chat_log')
                 answer = ask.delay(incoming_msg, chat_log)
                 session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
                                                                      chat_log)
                 if user is not None:
-                    response = client.send_normal_message.delay(answer, user)
+                    response = client.send_normal_message.delay(replay=answer, phone_number=user)
                 else:
                     response = "No User"
         else:
