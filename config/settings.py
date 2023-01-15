@@ -1,18 +1,27 @@
 # DEV settings.py
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
-DEBUG = True
+# Flask Config
+DEBUG = os.getenv("DEBUG")
 
 # Secret key
 SECRET_KEY = os.urandom(24)
 
+# Open AI Key
+OPEN_AI_KEY = os.getenv("OPEN_AI_KEY")
+
+# Whatsapp API Config
+VERIFY_TOKEN = os.getenv('WHATSAPP_HOOK_TOKEN')
+WHATSAPP_API_TOKEN = os.getenv("WHATSAPP_API_TOKEN")
+WHATSAPP_NUMBER_ID = os.getenv("WHATSAPP_NUMBER_ID")
 
 # Celery Config
-CELERY_BROKER_URL = 'redis://:devpassword@redis:6379/0'
-CELERY_RESULT_BACKEND = 'redis://:devpassword@redis:6379/0'
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_REDIS_MAX_CONNECTIONS = 5
-
