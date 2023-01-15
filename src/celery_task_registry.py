@@ -8,4 +8,5 @@ celery = Celery(app.import_name,
 
 CELERY_TASK_LIST = [
     'src.blueprints.pages.tasks',
+    'src.blueprints.pages.whatsapp_client',
 ]

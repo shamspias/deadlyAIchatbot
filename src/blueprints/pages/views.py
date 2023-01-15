@@ -1,11 +1,7 @@
-from flask import current_app as app
 from flask import (Blueprint,
                    render_template,
                    request,
                    jsonify)
-
-import sqlite3
-import pandas as pd
 
 page = Blueprint('pages', __name__, template_folder='templates')
 
