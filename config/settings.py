@@ -14,7 +14,7 @@ SECRET_KEY = os.urandom(24)
 OPEN_AI_KEY = os.getenv("OPEN_AI_KEY")
 
 # Whatsapp API Config
-VERIFY_TOKEN = os.getenv('WHATSAPP_HOOK_TOKEN')
+WHATSAPP_HOOK_TOKEN = os.getenv('WHATSAPP_HOOK_TOKEN')
 WHATSAPP_API_TOKEN = os.getenv("WHATSAPP_API_TOKEN")
 WHATSAPP_NUMBER_ID = os.getenv("WHATSAPP_NUMBER_ID")
 GRAPH_API_URL = "https://graph.facebook.com/v15.0/"

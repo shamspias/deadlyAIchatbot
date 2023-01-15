@@ -1,9 +1,15 @@
 from flask import (Blueprint,
                    render_template,
                    request,
-                   jsonify)
+                   jsonify,
+                   session)
+from config.settings import WHATSAPP_HOOK_TOKEN
+from open_ai_connection import ask, append_interaction_to_chat_log
+from whatsapp_client import WhatsAppWrapper
 
 page = Blueprint('pages', __name__, template_folder='templates')
+
+VERIFY_TOKEN = WHATSAPP_HOOK_TOKEN
 
 
 @page.route("/")
