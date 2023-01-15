@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}PocketGod{{ title }}{% endblock %}
+{% block content %}
+
+<h2>Example: Execute Task</h2>
+<button id="start-task">Start Task</button><br><br>
+<div id="task-message" hidden="true">Task ID Executed: <span id="task-id" ></span></div>
+
+
+
+<script>
+    $('#start-task').click(function(){
+        $.ajax({
+            type: 'POST',
+            url: '{{url_for('pages._execute_task') }}',
+            contentType: 'application/json',
+            success:function(data){
+                $('#task-id').html(data.taskID);
+                $('#task-message').attr('hidden', false);
+            }
+        })
+    });
+</script>
+
+{% endblock %}
