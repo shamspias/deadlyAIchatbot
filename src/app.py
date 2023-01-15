@@ -12,7 +12,7 @@ def make_celery(app=None):
     """
 
     celery = Celery(app.import_name, broker=app.config['CELERY_BROKER_URL'],
-                                     include=CELERY_TASK_LIST)
+                    include=CELERY_TASK_LIST)
 
     celery.conf.update(app.config)
     TaskBase = celery.Task
