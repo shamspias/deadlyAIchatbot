@@ -75,14 +75,14 @@ def deadly_text_chat():
 
         if incoming_msg is not None:
             if incoming_msg.startswith("/image"):
-                response = client.send_normal_message.delay(WhatsAppWrapper(), "Image will be added soon", user)
+                response = client.send_normal_message("Image will be added soon", user)
             else:
                 chat_log = session.get('chat_log')
                 answer = get_answer.delay(incoming_msg, chat_log)
                 session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
                                                                      chat_log)
                 if user is not None:
-                    response = client.send_normal_message.delay(WhatsAppWrapper(), answer, user)
+                    response = client.send_normal_message(answer, user)
                 else:
                     response = "No User"
         else:
