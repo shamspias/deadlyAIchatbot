@@ -3,6 +3,8 @@ from config.settings import GRAPH_API_URL, WHATSAPP_API_TOKEN, WHATSAPP_NUMBER_I
 import requests
 import json
 
+celery = celery_app
+
 
 class WhatsAppWrapper:
     API_URL = GRAPH_API_URL
@@ -65,6 +67,7 @@ class WhatsAppWrapper:
         # Do whatever with the response
         return response
 
+    @celery.task(name="send_message", serializer='json')
     def send_normal_message(self, replay, phone_number):
         payload = json.dumps({
             "messaging_product": "whatsapp",
