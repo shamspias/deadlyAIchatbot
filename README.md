@@ -111,7 +111,7 @@ services:
 
   celery:
     build: .
-    command: celery worker -A wsgi_app.celery --loglevel=info --pool=solo
+    command: celery -A wsgi_app.celery worker --loglevel=info --pool=solo
     env_file:
       - '.env'
     volumes:
