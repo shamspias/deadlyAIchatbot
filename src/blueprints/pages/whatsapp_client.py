@@ -2,6 +2,7 @@ from src.app import celery_app
 from config.settings import GRAPH_API_URL, WHATSAPP_API_TOKEN, WHATSAPP_NUMBER_ID
 import requests
 import json
+from flask import jsonify
 
 celery = celery_app
 
@@ -92,6 +93,6 @@ def send_normal_message(replay, phone_number):
 
     response = requests.request("POST", f"{client.API_URL}/messages", headers=client.headers, data=payload)
 
-    assert response.status_code == 200, {"error": "Error sending message"}
+    assert response.status_code == 200, jsonify({"error": "Error sending message"})
 
-    return {"status": response.status_code}
+    return jsonify({"status": response.status_code})
