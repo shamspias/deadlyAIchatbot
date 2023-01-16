@@ -59,7 +59,7 @@ def deadly_text_chat():
     Send mgs
     :return:
     """
-    from src.blueprints.pages.open_ai_connection import ask, append_interaction_to_chat_log
+    from src.blueprints.pages.open_ai_connection import get_answer, append_interaction_to_chat_log
     from src.blueprints.pages.whatsapp_client import WhatsAppWrapper
 
     if request.method == "GET":
@@ -79,7 +79,7 @@ def deadly_text_chat():
                 response = client.send_normal_message("Image will be added soon", user)
             else:
                 chat_log = session.get('chat_log')
-                answer = ask.delay(incoming_msg, chat_log)
+                answer = get_answer.delay(incoming_msg, chat_log)
                 session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
                                                                      chat_log)
                 if user is not None:

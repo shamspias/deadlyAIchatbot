@@ -11,7 +11,6 @@ start_sequence = "The name is PocketGod\n\nPocketGod:"
 restart_sequence = "\n\nPerson:"
 
 
-@celery_app.task(name="ask")
 def ask(question, chat_log=None):
     prompt_text = f'{chat_log}{restart_sequence}: {question}{start_sequence}:'
     response = openai.Completion.create(
@@ -32,6 +31,7 @@ def append_interaction_to_chat_log(question, answer, chat_log=None):
     return f'{chat_log}{restart_sequence} {question}{start_sequence}{answer}'
 
 
+@celery_app.task(name="get_answer")
 def get_answer(question, chat_log):
     answer = ask(question, chat_log)
-    return
+    return answer
