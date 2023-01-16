@@ -25,7 +25,6 @@ VERIFY_TOKEN = WHATSAPP_HOOK_TOKEN
 def send_template_message():
     """_summary_: Send a message with a template to a phone number"""
 
-    from open_ai_connection import ask, append_interaction_to_chat_log
     from src.blueprints.pages.whatsapp_client import WhatsAppWrapper
 
     if "language_code" not in request.json:
