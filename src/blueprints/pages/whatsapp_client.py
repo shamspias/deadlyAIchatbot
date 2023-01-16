@@ -16,7 +16,7 @@ class WhatsAppWrapper:
         self.API_URL = self.API_URL + self.NUMBER_ID
 
     def send_template_message(self, template_name, language_code, phone_number):
-        payload = json.dumps({
+        payload = json.dumps(list({
             "messaging_product": "whatsapp",
             "to": phone_number,
             "type": "template",
@@ -26,7 +26,7 @@ class WhatsAppWrapper:
                     "code": language_code
                 }
             }
-        })
+        }))
 
         response = requests.request("POST", f"{self.API_URL}/messages", headers=self.headers, data=payload)
 
