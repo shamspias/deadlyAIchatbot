@@ -80,7 +80,7 @@ class WhatsAppWrapper:
         return response
 
 
-@celery.task(name="send_message")
+@celery.task(serializer='json', name="send_message")
 def send_normal_message(replay, phone_number):
     payload = json.dumps({
         "messaging_product": "whatsapp",
