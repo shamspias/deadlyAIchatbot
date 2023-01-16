@@ -59,7 +59,7 @@ def deadly_text_chat():
     :return:
     """
     from src.blueprints.pages.open_ai_connection import get_answer, append_interaction_to_chat_log
-    from src.blueprints.pages.whatsapp_client import WhatsAppWrapper
+    from src.blueprints.pages.whatsapp_client import WhatsAppWrapper, send_normal_message
 
     if request.method == "GET":
         if request.args.get('hub.verify_token') == VERIFY_TOKEN:
@@ -75,14 +75,14 @@ def deadly_text_chat():
 
         if incoming_msg is not None:
             if incoming_msg.startswith("/image"):
-                response = client.send_normal_message("Image will be added soon", user)
+                response = send_normal_message.delay("Image will be added soon", user)
             else:
                 chat_log = session.get('chat_log')
                 answer = get_answer.delay(incoming_msg, chat_log)
                 session['chat_log'] = append_interaction_to_chat_log(incoming_msg, answer,
                                                                      chat_log)
                 if user is not None:
-                    response = client.send_normal_message(answer, user)
+                    response = send_normal_message.delay(answer, user)
                 else:
                     response = "No User"
         else:
