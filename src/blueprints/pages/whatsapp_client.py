@@ -92,6 +92,6 @@ def send_normal_message(replay, phone_number):
 
     response = requests.request("POST", f"{client.API_URL}/messages", headers=client.headers, data=payload)
 
-    assert response.status_code == 200, "Error sending message"
+    assert response.status_code == 200, {"error": "Error sending message"}
 
-    return response.status_code
+    return {"status": response.status_code}
